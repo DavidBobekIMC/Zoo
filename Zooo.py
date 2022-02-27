@@ -1,1 +1,1 @@
-print("ZOO")
+print("Zologicka")
