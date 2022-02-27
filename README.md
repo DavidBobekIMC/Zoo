@@ -1,1 +1,1 @@
-# chichinko
+# chichinko git clone git@github.com:whatever
