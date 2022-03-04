@@ -1,1 +1,1 @@
-print("Zologicka")
+print("ahoj")

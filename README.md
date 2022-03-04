@@ -1,1 +1,1 @@
-# chichinko git clone git@github.com:whatever
+# ZOO homework
