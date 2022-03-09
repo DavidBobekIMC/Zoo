@@ -72,7 +72,7 @@ class VetAnimal(Resource):
 
 
 homie = reqparse.RequestParser()
-homie.add_argument('Enclosure ID', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
+homie.add_argument('Enclosure ID', type=str, required=True)
 @zooma_api.route('/animals/<animal_id>/home')
 class HomeAnimal(Resource):
     @zooma_api.doc(parser=homie)
