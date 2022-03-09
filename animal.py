@@ -27,6 +27,7 @@ class Animal:
     def home(self,enclosure_id):
         enclosure.enclosure[self]=enclosure_id
         self.enclosure = enclosure_id
+        print(enclosure.enclosure)
 
 
 
