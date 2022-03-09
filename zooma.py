@@ -26,6 +26,7 @@ class AddAnimalAPI(Resource):
         name = args['name']
         species = args['species']
         age = args['age']
+        
         # create a new animal object 
         new_animal = Animal (species, name, age) 
         #add the animal to the zoo
@@ -68,7 +69,25 @@ class VetAnimal(Resource):
             return jsonify(f"Animal with ID {animal_id} was not found") 
         targeted_animal.vet()
         return jsonify(targeted_animal)
-    
+
+
+homie = reqparse.RequestParser()
+homie.add_argument('Enclosure ID', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
+@zooma_api.route('/animals/<animal_id>/home')
+class HomeAnimal(Resource):
+    @zooma_api.doc(parser=homie)
+    def post(self, animal_id):
+        args = homie.parse_args()
+        enclosure_id = args['Enclosure ID']
+        
+
+         
+        targeted_animal  = my_zoo.getAnimal(animal_id)
+        if not targeted_animal: 
+            return jsonify(f"Animal with ID {animal_id} was not found") 
+        targeted_animal.home(enclosure_id)
+        return jsonify(targeted_animal)
+        
 
      
 if __name__ == '__main__':

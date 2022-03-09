@@ -1,5 +1,9 @@
 import uuid 
 import datetime 
+import enclosure
+
+
+
 class Animal: 
     def __init__ (self, species_name, common_name, age): 
         self.animal_id = str(uuid.uuid4())
@@ -19,7 +23,12 @@ class Animal:
 
     def vet(self):
         self.medical_checkup =  datetime.datetime.now()
-        
+
+    def home(self,enclosure_id):
+        enclosure.enclosure[self]=enclosure_id
+        self.enclosure = enclosure_id
+
+
 
 
             
