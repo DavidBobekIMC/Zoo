@@ -56,7 +56,7 @@ class FeedAnimal(Resource):
      def post(self, animal_id):
         targeted_animal  = my_zoo.getAnimal(animal_id)
         if not targeted_animal: 
-            return jsonify("Animal with ID {animal_id} was not found") 
+            return jsonify(f"Animal with ID {animal_id} was not found") 
         targeted_animal.feed()
         return jsonify(targeted_animal)
 
@@ -65,7 +65,7 @@ class VetAnimal(Resource):
      def post(self, animal_id):
         targeted_animal  = my_zoo.getAnimal(animal_id)
         if not targeted_animal: 
-            return jsonify("Animal with ID {animal_id} was not found") 
+            return jsonify(f"Animal with ID {animal_id} was not found") 
         targeted_animal.vet()
         return jsonify(targeted_animal)
     
