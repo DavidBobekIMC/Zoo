@@ -42,9 +42,9 @@ class Animal_ID(Resource):
      def delete(self, animal_id):
         targeted_animal  = my_zoo.getAnimal(animal_id)
         if not targeted_animal: 
-            return jsonify("Animal with ID {animal_id} was not found")
+            return jsonify(f"Animal with ID {animal_id} was not found")
         my_zoo.removeAnimal(targeted_animal)
-        return jsonify("Animal with ID {animal_id} was removed") 
+        return jsonify(f"Animal with ID {animal_id} was removed") 
 @zooma_api.route('/animals')
 class AllAnimals(Resource):
      def get(self):
@@ -72,4 +72,4 @@ class VetAnimal(Resource):
 
      
 if __name__ == '__main__':
-    zooma_app.run(debug = False, port = 7890)
+    zooma_app.run(debug = True, port = 7000)
