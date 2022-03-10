@@ -4,6 +4,7 @@ from zoo_json_utils import ZooJsonEncoder
 from zoo import Zoo 
 
 from animal import Animal 
+from enclosure import Enclosure
 
 my_zoo = Zoo()
 
