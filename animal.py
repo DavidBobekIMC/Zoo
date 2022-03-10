@@ -24,11 +24,14 @@ class Animal:
         self.medical_checkup.append( datetime.datetime.now())
 
     def home(self,enclosure_id):
+        self.enclosureID = enclosure_id
         print("hey")
         #Enclosure Name
+
         self.enclosure = Enclosure(enclosure_id,self.animal_id)
         print(self.enclosure.house)
         """ self.enclosure[self] = enclosure_id """
+
         
     def birth(self):
         pass
@@ -42,7 +45,7 @@ class Child(Animal):
         self.common_name = common_name 
         self.age = 1
         self.feeding_record = [] 
-        self.enclosure = "ADD THIS SHIT"
+        self.enclosure.house[self.animal_id] = self.enclosureID
         self.care_taker = None 
         self.medical_checkup = []
         
@@ -52,7 +55,8 @@ class Child(Animal):
     
 
 
-
-
+dospeli = Animal("a","a",1)
+babatko = Child()
+print(babatko)
 
             
