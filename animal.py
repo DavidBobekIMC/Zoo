@@ -1,7 +1,6 @@
 import uuid 
 import datetime 
-import enclosure
-
+from enclosure import Enclosure
 
 
 class Animal: 
@@ -13,7 +12,7 @@ class Animal:
         self.feeding_record = [] 
         self.enclosure = None 
         self.care_taker = None 
-        self.medical_checkup = None
+        self.medical_checkup = []
         
         # add more as required here 
         
@@ -22,12 +21,36 @@ class Animal:
         self.feeding_record.append ( datetime.datetime.now()) 
 
     def vet(self):
-        self.medical_checkup =  datetime.datetime.now()
+        self.medical_checkup.append( datetime.datetime.now())
 
     def home(self,enclosure_id):
-        enclosure.enclosure[self]=enclosure_id
-        self.enclosure = enclosure_id
-        print(enclosure.enclosure)
+        print("hey")
+        #Enclosure Name
+        self.enclosure = Enclosure(enclosure_id,self.animal_id)
+        print(self.enclosure.house)
+        """ self.enclosure[self] = enclosure_id """
+        
+    def birth(self):
+        pass
+""" 
+zvieratko = Animal("A","A",4)
+zvieratko.home(455) """
+class Child(Animal):
+    def __init__(self,species_name,common_name):
+        self.animal_id = str(uuid.uuid4())
+        self.species_name = species_name 
+        self.common_name = common_name 
+        self.age = 1
+        self.feeding_record = [] 
+        self.enclosure = "ADD THIS SHIT"
+        self.care_taker = None 
+        self.medical_checkup = []
+        
+
+        super().__init__(self,species_name,common_name)
+
+    
+
 
 
 
