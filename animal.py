@@ -56,7 +56,7 @@ class Child(Animal):
 
 
 dospeli = Animal("a","a",1)
-babatko = Child()
+babatko = Child("a")
 print(babatko)
 
             
