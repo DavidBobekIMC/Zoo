@@ -82,14 +82,18 @@ class HomeAnimal(Resource):
         targeted_animal  = my_zoo.getAnimal(animal_id)
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
+
         if targeted_animal.enclosure == None:
+            #checking if animal is without an enclosure
             targeted_animal.enclosure = enclosure_id
             targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
             targetedEnclosure.animals.append(animal_id)
         
 
         else:
+            #getting the current enclosure
             presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
+            #deleting the ID of animal form the enclosure
             presentEnclosure.animals.remove(targeted_animal.animal_id)
         
         """ if not targeted_animal or targetedEnclosure: 
