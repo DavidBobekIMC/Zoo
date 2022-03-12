@@ -81,11 +81,10 @@ class HomeAnimal(Resource):
     def post(self, animal_id):
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
-        
-
+        targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
          
         targeted_animal  = my_zoo.getAnimal(animal_id)
-        if not targeted_animal: 
+        if not targeted_animal or targetedEnclosure: 
             return jsonify(f"Animal with ID {animal_id} was not found") 
         targeted_animal.home(enclosure_id)
         return jsonify(targeted_animal)
@@ -125,9 +124,33 @@ class AnimalDie(Resource):
         animal_id.die()
         return jsonify(animal_id)
 
+enclosures = reqparse.RequestParser()
+enclosures.add_argument('Enclosure ID', type=str, required=True)     
+enclosures.add_argument('Area', type=str, required=True)   
+@zooma_api.route('/enclosure')
+class CreateEnclosure(Resource):
+    @zooma_api.doc(parser=enclosures)
+    def post(self):
+        args = enclosures.parse_args()
+        Enclosure_ID = args["Enclosure ID"]
+        area = args["Area"]         
+        Enclosure_ID = Enclosure(Enclosure_ID,area)
+        if not Enclosure_ID: 
+            return jsonify(f"Enclosure with ID {Enclosure_ID} was not found") 
+        
+        #need to return the child not parent = find a way
+        my_zoo.add_enclosure(Enclosure_ID)   
+        return jsonify(Enclosure_ID)
+
+@zooma_api.route('/enclosures')
+class AllAnimals(Resource):
+     def get(self):
+        return jsonify(my_zoo.all_Enclosures)  
+    
+
 
         
-
+#add_enclosure
      
 if __name__ == '__main__':
     zooma_app.run(debug = True, port = 7000)
