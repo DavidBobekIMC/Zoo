@@ -95,6 +95,12 @@ class HomeAnimal(Resource):
             presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
             #deleting the ID of animal form the enclosure
             presentEnclosure.animals.remove(targeted_animal.animal_id)
+
+            targeted_animal.enclosure = enclosure_id
+            targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
+
+            
+            targetedEnclosure.animals.append(animal_id)
         
         """ if not targeted_animal or targetedEnclosure: 
             return jsonify(f"Animal with ID {animal_id} was not found")  """
