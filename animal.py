@@ -46,7 +46,8 @@ class Child(Animal):
         self.medical_checkup = []
         self.common_name = motherAnimal.common_name
         self.species_name = motherAnimal.species_name
-    
+        self.enclosure = motherAnimal.enclosure
+        self.motherID = motherAnimal.animal_id
 
 
 #print(babatko)
