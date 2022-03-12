@@ -79,13 +79,21 @@ homie.add_argument('Enclosure ID', type=str, required=True)
 class HomeAnimal(Resource):
     @zooma_api.doc(parser=homie)
     def post(self, animal_id):
+        targeted_animal  = my_zoo.getAnimal(animal_id)
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
-        targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
-         
-        targeted_animal  = my_zoo.getAnimal(animal_id)
-        if not targeted_animal or targetedEnclosure: 
-            return jsonify(f"Animal with ID {animal_id} was not found") 
+        if targeted_animal.enclosure == None:
+            targeted_animal.enclosure = enclosure_id
+            targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
+            targetedEnclosure.animals.append(animal_id)
+        
+
+        else:
+            presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
+            presentEnclosure.animals.remove(targeted_animal.animal_id)
+        
+        """ if not targeted_animal or targetedEnclosure: 
+            return jsonify(f"Animal with ID {animal_id} was not found")  """
         targeted_animal.home(enclosure_id)
         return jsonify(targeted_animal)
 

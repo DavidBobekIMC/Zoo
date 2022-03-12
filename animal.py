@@ -9,7 +9,7 @@ class Animal:
         self.common_name = common_name 
         self.age = age 
         self.feeding_record = [] 
-        self.enclosure = {} 
+        self.enclosure = None
         self.care_taker = None 
         self.medical_checkup = []
         
@@ -27,6 +27,7 @@ class Animal:
         print("hey")
         #Enclosure Name
         #add animal to the enclosure
+
 
         
     def birth(self):

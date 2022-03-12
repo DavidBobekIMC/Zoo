@@ -16,8 +16,11 @@ class Zoo:
                 return animal 
 
     def getEnclosure(self,enclosure_id):
-        for enclosure in self.all_Enclosures: 
-            if enclosure == enclosure_id: 
+        print(self.all_Enclosures)
+        for enclosure in self.all_Enclosures:
+            print(enclosure) 
+            if enclosure.name == enclosure_id: 
+                print(enclosure)
                 return enclosure 
 
 
@@ -29,4 +32,3 @@ class Zoo:
         self.all_Enclosures.append(enclosure)
 
 
-  
