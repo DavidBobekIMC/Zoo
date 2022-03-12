@@ -3,7 +3,8 @@ from flask_restx import Api, reqparse, Resource
 from zoo_json_utils import ZooJsonEncoder 
 from zoo import Zoo 
 
-from animal import Animal 
+from animal import Animal
+from animal import Child
 from enclosure import Enclosure
 
 my_zoo = Zoo()
@@ -88,8 +89,29 @@ class HomeAnimal(Resource):
             return jsonify(f"Animal with ID {animal_id} was not found") 
         targeted_animal.home(enclosure_id)
         return jsonify(targeted_animal)
+
+kokot = reqparse.RequestParser()
+kokot.add_argument('Mother_ID', type=str, required=True)       
+@zooma_api.route('/animals/birth')
+class AnimalBirth(Resource):
+    @zooma_api.doc(parser=kokot)
+    def post(self):
+        args = kokot.parse_args()
+        mother_id = args["Mother_ID"]         
+        motherAnimal  = my_zoo.getAnimal(mother_id)
+        if not motherAnimal: 
+            return jsonify(f"Animal with ID {mother_id} was not found") 
+        
+        #need to return the child not parent = find a way
+        AnimalChild = motherAnimal.birth()
+        my_zoo.addAnimal (AnimalChild)
+        return jsonify(AnimalChild)
+
         
 
      
 if __name__ == '__main__':
     zooma_app.run(debug = True, port = 7000)
+
+
+    

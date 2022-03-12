@@ -1,8 +1,6 @@
 import uuid 
 import datetime 
 from enclosure import Enclosure
-
-
 class Animal: 
     def __init__ (self, species_name, common_name, age): 
         self.animal_id = str(uuid.uuid4())
@@ -10,7 +8,7 @@ class Animal:
         self.common_name = common_name 
         self.age = age 
         self.feeding_record = [] 
-        self.enclosure = None 
+        self.enclosure = {} 
         self.care_taker = None 
         self.medical_checkup = []
         
@@ -34,29 +32,23 @@ class Animal:
 
         
     def birth(self):
-        pass
+        child = Child(self)
+        return child
 """ 
 zvieratko = Animal("A","A",4)
 zvieratko.home(455) """
 class Child(Animal):
-    def __init__(self,species_name,common_name):
+    def __init__(self,motherAnimal):
         self.animal_id = str(uuid.uuid4())
-        self.species_name = species_name 
-        self.common_name = common_name 
-        self.age = 1
+        self.age = 0
         self.feeding_record = [] 
-        self.enclosure.house[self.animal_id] = self.enclosureID
         self.care_taker = None 
         self.medical_checkup = []
-        
-
-        super().__init__(self,species_name,common_name)
-
+        self.common_name = motherAnimal.common_name
+        self.species_name = motherAnimal.species_name
     
 
 
-dospeli = Animal("a","a",1)
-babatko = Child("a")
-print(babatko)
+#print(babatko)
 
             
