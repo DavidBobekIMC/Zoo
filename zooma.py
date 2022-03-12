@@ -107,6 +107,25 @@ class AnimalBirth(Resource):
         my_zoo.addAnimal (AnimalChild)
         return jsonify(AnimalChild)
 
+
+hello = reqparse.RequestParser()
+hello.add_argument('Animal_ID', type=str, required=True)       
+@zooma_api.route('/animal/death')
+class AnimalDie(Resource):
+    @zooma_api.doc(parser=hello)
+    def post(self):
+        args = hello.parse_args()
+        animal_id = args["Animal_ID"]         
+        animal_id  = my_zoo.getAnimal(animal_id)
+        if not animal_id: 
+            return jsonify(f"Animal with ID {animal_id} was not found") 
+        
+        #need to return the child not parent = find a way
+        my_zoo.animal_die(animal_id)
+        animal_id.die()
+        return jsonify(animal_id)
+
+
         
 
      
