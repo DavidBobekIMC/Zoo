@@ -220,16 +220,10 @@ class AddCaretaker(Resource):
         return jsonify(newCaretaker) 
 
 caretaker_animal = reqparse.RequestParser()
-caretaker_animal.add_argument('employee_id', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
-caretaker_animal.add_argument('animal_id', type=str, required=True, help='The common name of the animal, e.g., Tiger') 
-
 @zooma_api.route('/employee/<employee_id>/care/<animal_id>/')
 class CaretakerAnimal(Resource):
-    @zooma_api.doc(parser=caretaker_animal)
+    
     def post(self,animal_id,employee_id):
-        args = caretaker_animal.parse_args()
-        employee_id = args['employee_id']
-        animal_id = args['animal_id']
         targeted_animal  = my_zoo.getAnimal(animal_id)
         targeted_caretaker = my_zoo.getCaretaker(employee_id)
         if targeted_animal == None: 
@@ -244,7 +238,7 @@ class CaretakerAnimal(Resource):
 
 
 
-@zooma_api.route('/employee/<employee_id>')
+@zooma_api.route('/employee/<employee_id>/care/animals')
 class Allemployees(Resource):
      def get(self,employee_id):
         target_caretaker  = my_zoo.getCaretaker(employee_id)
