@@ -182,6 +182,7 @@ class CleanEnclosrue(Resource):
      def post(self, enclosure_id):
         targeted_enclosure  = my_zoo.getEnclosure(enclosure_id)
         if targeted_enclosure == None: 
+            
             return jsonify(f"Enclosure with ID {enclosure_id} was not found") 
         my_zoo.clean_enclosure(enclosure_id)
         return jsonify(targeted_enclosure)
