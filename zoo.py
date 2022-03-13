@@ -1,3 +1,4 @@
+import datetime
 class Zoo: 
     def __init__ (self): 
         self.animals = []
@@ -35,5 +36,12 @@ class Zoo:
                 y = 0
         if y == 1:
             self.all_Enclosures.append(enclosure)
+    
+    def clean_enclosure(self,enclosure_id):
+        for enclosure in self.all_Enclosures:     
+            if enclosure.name == enclosure_id:
+                enclosure.cleaning_records.append(datetime.datetime.now())
+                print(enclosure.cleaning_records)
+                
 
 

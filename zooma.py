@@ -83,15 +83,12 @@ class HomeAnimal(Resource):
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
 
-        
-
         if targeted_animal.enclosure == None:
             #checking if animal is without an enclosure
             targeted_animal.enclosure = enclosure_id
             targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
             targetedEnclosure.animals.append(targeted_animal)
         
-
         else:
             #getting the current enclosure
             presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
@@ -180,9 +177,15 @@ class AllAnimals(Resource):
         return jsonify(my_zoo.all_Enclosures)  
     
 
+@zooma_api.route('/enclosures/<enclosure_id>/clean')
+class CleanEnclosrue(Resource):
+     def post(self, enclosure_id):
+        targeted_enclosure  = my_zoo.getEnclosure(enclosure_id)
+        if targeted_enclosure == None: 
+            return jsonify(f"Enclosure with ID {enclosure_id} was not found") 
+        my_zoo.clean_enclosure(enclosure_id)
+        return jsonify(targeted_enclosure)
 
-        
-#add_enclosure
      
 if __name__ == '__main__':
     zooma_app.run(debug = True, port = 7000)

@@ -8,9 +8,12 @@ class Enclosure:
         self.animals = []
         self.name = name
         self.area = area
+        self.cleaning_records = []
 
     def removeAnimal(self,animal_id):
         self.animals.remove(animal_id)
+
+    
 
         
         
