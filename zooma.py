@@ -231,6 +231,7 @@ class CaretakerAnimal(Resource):
         if targeted_caretaker == None: 
             return jsonify(f"Animal with ID {employee_id} was not found") 
         targeted_caretaker.care(targeted_animal)
+        targeted_animal.care_taker = targeted_caretaker.name
         return jsonify(targeted_caretaker)
 
 
