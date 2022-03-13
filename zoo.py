@@ -1,9 +1,12 @@
 import datetime
+
+from caretaker import Caretaker
 class Zoo: 
     def __init__ (self): 
         self.animals = []
         self.deadanimals = []
         self.all_Enclosures = []
+        self.caretakers = []
         
     def addAnimal(self, animal): 
         self.animals.append (animal) 
@@ -42,6 +45,9 @@ class Zoo:
             if enclosure.name == enclosure_id:
                 enclosure.cleaning_records.append(datetime.datetime.now())
                 print(enclosure.cleaning_records)
-                
+    
+    def add_Caretaker(self,caretaker):
+        self.caretakers.append(caretaker)
+
 
 

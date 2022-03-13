@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_restx import Api, reqparse, Resource
+from caretaker import Caretaker
 from zoo_json_utils import ZooJsonEncoder 
 from zoo import Zoo 
 
@@ -182,10 +183,42 @@ class CleanEnclosrue(Resource):
      def post(self, enclosure_id):
         targeted_enclosure  = my_zoo.getEnclosure(enclosure_id)
         if targeted_enclosure == None: 
-            
+
             return jsonify(f"Enclosure with ID {enclosure_id} was not found") 
         my_zoo.clean_enclosure(enclosure_id)
         return jsonify(targeted_enclosure)
+
+
+@zooma_api.route('/enclosures/<enclosure_id>/animals')
+class AllEnclosures(Resource):
+     def get(self,enclosure_id):
+        targeted_enclosure  = my_zoo.getEnclosure(enclosure_id)
+        if targeted_enclosure == None: 
+
+            return jsonify(f"Enclosure with ID {enclosure_id} was not found") 
+        return jsonify(targeted_enclosure.animals)  
+    
+caretaker_parser = reqparse.RequestParser()
+caretaker_parser.add_argument('address', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
+caretaker_parser.add_argument('name', type=str, required=True, help='The common name of the animal, e.g., Tiger')
+
+
+@zooma_api.route('/employee')
+class AddCaretaker(Resource):
+    @zooma_api.doc(parser=caretaker_parser)
+    def post(self):
+        # get the post parameters 
+        args = caretaker_parser.parse_args()
+        name = args['name']
+        address = args['address']
+ 
+        
+        # create a new animal object 
+        newCaretaker = Caretaker(address, name) 
+        #add the animal to the zoo
+        my_zoo.add_Caretaker (newCaretaker) 
+        return jsonify(newCaretaker) 
+
 
      
 if __name__ == '__main__':
