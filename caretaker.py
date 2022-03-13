@@ -4,5 +4,5 @@ class Caretaker:
         self.address =address
         self.animals = []
 
-    def assignAnimals(self,animal):
+    def care(self,animal):
         self.animals.append(animal)
