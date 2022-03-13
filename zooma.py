@@ -105,7 +105,7 @@ class HomeAnimal(Resource):
         if not targeted_animal or not targetedEnclosure: 
             return jsonify(f"Animal with ID {animal_id} was not found")
         
-        targeted_animal.home(enclosure_id)
+        
         return jsonify(targeted_animal)
 
 kokot = reqparse.RequestParser()

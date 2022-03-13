@@ -22,9 +22,7 @@ class Animal:
     def vet(self):
         self.medical_checkup.append( datetime.datetime.now())
 
-    def home(self,enclosure_id):
-        self.enclosureID = enclosure_id
-        print("hey")
+    
         #Enclosure Name
         #add animal to the enclosure
 
