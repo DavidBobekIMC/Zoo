@@ -199,8 +199,8 @@ class AllEnclosures(Resource):
         return jsonify(targeted_enclosure.animals)  
     
 caretaker_parser = reqparse.RequestParser()
-caretaker_parser.add_argument('address', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
-caretaker_parser.add_argument('name', type=str, required=True, help='The common name of the animal, e.g., Tiger')
+caretaker_parser.add_argument('name', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
+caretaker_parser.add_argument('address', type=str, required=True, help='The common name of the animal, e.g., Tiger')
 
 
 @zooma_api.route('/employee')
@@ -209,16 +209,46 @@ class AddCaretaker(Resource):
     def post(self):
         # get the post parameters 
         args = caretaker_parser.parse_args()
-        name = args['name']
         address = args['address']
- 
+        name = args['name']
+        
         
         # create a new animal object 
-        newCaretaker = Caretaker(address, name) 
+        newCaretaker = Caretaker(name, address) 
         #add the animal to the zoo
         my_zoo.add_Caretaker (newCaretaker) 
         return jsonify(newCaretaker) 
 
+""" caretaker_animal = reqparse.RequestParser()
+caretaker_animal.add_argument('employee_id', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
+caretaker_animal.add_argument('animal_id', type=str, required=True, help='The common name of the animal, e.g., Tiger') 
+
+@zooma_api.route('/employee/<employee_id>/care/<animal_id>/')
+
+class AssignCaretaker_toAnimal(Resource):
+    @zooma_api.doc(parser=caretaker_animal)
+    def post(self,employee_id,animal_id):
+        args = caretaker_animal.parse_args()
+        employee_id = args['employee_id']
+        animal_id = args['animal_id']
+        targeted_animal  = my_zoo.getAnimal(animal_id)
+        targeted_caretaker = my_zoo.getCaretaker(employee_id)
+        if targeted_animal == None: 
+            return jsonify(f"Animal with ID {animal_id} was not found") 
+        if targeted_caretaker == None: 
+            return jsonify(f"Animal with ID {employee_id} was not found") 
+        targeted_caretaker.assignAnimals(targeted_animal)
+        return jsonify(targeted_caretaker)
+ """
+
+@zooma_api.route('/employee/<employee_id>')
+class Allemployees(Resource):
+     def get(self,employee_id):
+        target_caretaker  = my_zoo.getCaretaker(employee_id)
+        if target_caretaker == None: 
+            return jsonify(f"Enclosure with ID {employee_id} was not found") 
+        return jsonify(target_caretaker.animals)  
+    
 
      
 if __name__ == '__main__':

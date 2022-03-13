@@ -49,5 +49,11 @@ class Zoo:
     def add_Caretaker(self,caretaker):
         self.caretakers.append(caretaker)
 
+    def getCaretaker(self,caretaker_name):
+        for caretaker in self.caretakers: 
+            if caretaker.name == caretaker_name: 
+                return caretaker 
+
+
 
 
