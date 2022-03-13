@@ -94,7 +94,7 @@ class HomeAnimal(Resource):
             #getting the current enclosure
             presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
             #deleting the ID of animal form the enclosure
-            presentEnclosure.animals.remove(targeted_animal.animal_id)
+            presentEnclosure.animals.remove(targeted_animal)
             #finding where I want to add animal
             targeted_animal.enclosure = enclosure_id
             targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
@@ -131,9 +131,7 @@ class AnimalBirth(Resource):
             pass
         else:
             motherEnclosure.animals.append(AnimalChild)
-
-
-
+            
         my_zoo.addAnimal (AnimalChild)
         return jsonify(AnimalChild)
 
