@@ -87,7 +87,7 @@ class HomeAnimal(Resource):
             #checking if animal is without an enclosure
             targeted_animal.enclosure = enclosure_id
             targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
-            targetedEnclosure.animals.append(animal_id)
+            targetedEnclosure.animals.append(targeted_animal)
         
 
         else:
@@ -95,11 +95,11 @@ class HomeAnimal(Resource):
             presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
             #deleting the ID of animal form the enclosure
             presentEnclosure.animals.remove(targeted_animal.animal_id)
-
+            #finding where I want to add animal
             targeted_animal.enclosure = enclosure_id
             targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
 
-            
+            #adding it to the enclosure
             targetedEnclosure.animals.append(animal_id)
         
         """ if not targeted_animal or targetedEnclosure: 
@@ -120,7 +120,15 @@ class AnimalBirth(Resource):
             return jsonify(f"Animal with ID {mother_id} was not found") 
         
         #need to return the child not parent = find a way
+
+
+
         AnimalChild = motherAnimal.birth()
+        motherEnclosure = my_zoo.getEnclosure(motherAnimal.enclosure)
+        motherEnclosure.animals.append(AnimalChild)
+
+
+
         my_zoo.addAnimal (AnimalChild)
         return jsonify(AnimalChild)
 
