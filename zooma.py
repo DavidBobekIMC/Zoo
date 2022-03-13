@@ -122,10 +122,15 @@ class AnimalBirth(Resource):
         #need to return the child not parent = find a way
 
 
-
+        #adding Instance of a subclass Animal called child into the enclosure where is mother
         AnimalChild = motherAnimal.birth()
+
         motherEnclosure = my_zoo.getEnclosure(motherAnimal.enclosure)
-        motherEnclosure.animals.append(AnimalChild)
+
+        if motherEnclosure == None:
+            pass
+        else:
+            motherEnclosure.animals.append(AnimalChild)
 
 
 
