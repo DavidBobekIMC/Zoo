@@ -83,6 +83,8 @@ class HomeAnimal(Resource):
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
 
+        
+
         if targeted_animal.enclosure == None:
             #checking if animal is without an enclosure
             targeted_animal.enclosure = enclosure_id
@@ -100,10 +102,11 @@ class HomeAnimal(Resource):
             targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
 
             #adding it to the enclosure
-            targetedEnclosure.animals.append(animal_id)
+            targetedEnclosure.animals.append(targeted_animal)
         
-        """ if not targeted_animal or targetedEnclosure: 
-            return jsonify(f"Animal with ID {animal_id} was not found")  """
+        if not targeted_animal or not targetedEnclosure: 
+            return jsonify(f"Animal with ID {animal_id} was not found")
+        
         targeted_animal.home(enclosure_id)
         return jsonify(targeted_animal)
 

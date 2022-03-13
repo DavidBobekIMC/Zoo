@@ -29,6 +29,11 @@ class Zoo:
         self.animals.remove(animal)
 
     def add_enclosure(self,enclosure):
-        self.all_Enclosures.append(enclosure)
+        y = 1
+        for x in self.all_Enclosures:
+            if x.name == enclosure.name:
+                y = 0
+        if y == 1:
+            self.all_Enclosures.append(enclosure)
 
 
