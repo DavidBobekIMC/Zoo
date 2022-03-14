@@ -246,6 +246,30 @@ class Allemployees(Resource):
         if target_caretaker == None: 
             return jsonify(f"Enclosure with ID {employee_id} was not found") 
         return jsonify(target_caretaker.animals)  
+
+
+
+
+@zooma_api.route('/employee/<employee_id>')
+class deleteEmployee(Resource):
+    
+    def delete(self,employee_id):
+        if len(my_zoo.caretakers)<2:
+            return {f"Add some more caretakers before deleting"}
+        Guy_That_will_be_kicked  = my_zoo.getCaretaker(employee_id)
+        new_employee =my_zoo.getRandomCaretaker(Guy_That_will_be_kicked)
+        #my_zoo.getCaretaker(new_employee)
+        oldAnimals = Guy_That_will_be_kicked.animals
+        if Guy_That_will_be_kicked == None: 
+            return jsonify(f"Caretaker with ID {employee_id} was not found") 
+
+        new_employee.takeResponsibility(oldAnimals)
+        for x in oldAnimals:
+            x.assign_caretaker(new_employee.name)
+        my_zoo.kick(Guy_That_will_be_kicked)
+        return jsonify(new_employee)
+
+
     
 
      

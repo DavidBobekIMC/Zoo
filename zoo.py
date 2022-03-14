@@ -1,5 +1,6 @@
 import datetime
-
+import random
+from random import *
 from caretaker import Caretaker
 class Zoo: 
     def __init__ (self): 
@@ -53,6 +54,19 @@ class Zoo:
         for caretaker in self.caretakers: 
             if caretaker.name == caretaker_name: 
                 return caretaker 
+    
+    def kick(self,thepoor_guy):
+        self.caretakers.remove(thepoor_guy)
+
+    def getRandomCaretaker(self,previousguy):
+        randomguy = randrange(0,len(self.caretakers))
+        
+        if self.caretakers[randomguy] == previousguy:
+            self.getRandomCaretaker(previousguy)
+        else: 
+            return self.caretakers[randomguy]
+
+        
 
 
 

@@ -37,6 +37,7 @@ class Animal:
     def die(self):
         self.enclosure = None
 
+
 """ 
 zvieratko = Animal("A","A",4)
 zvieratko.home(455) """
