@@ -11,3 +11,5 @@ class Caretaker:
     def takeResponsibility(self,list_of_animals):
         for x in list_of_animals:
             self.animals.append(x)
+
+

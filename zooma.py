@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from flask import Flask, jsonify
 from flask_restx import Api, reqparse, Resource
 from caretaker import Caretaker
@@ -224,10 +225,16 @@ caretaker_animal = reqparse.RequestParser()
 class CaretakerAnimal(Resource):
     
     def post(self,animal_id,employee_id):
-        targeted_animal  = my_zoo.getAnimal(animal_id)
-        targeted_caretaker = my_zoo.getCaretaker(employee_id)
+        
+        targeted_animal  = my_zoo.getAnimal(animal_id) 
         if targeted_animal == None: 
-            return jsonify(f"Animal with ID {animal_id} was not found") 
+            return jsonify(f"Animal with ID {animal_id} was not found")
+        
+        targeted_caretaker = my_zoo.getCaretaker(employee_id)
+        
+        if targeted_animal in targeted_caretaker.animals: 
+            return jsonify(f"Animal with ID {animal_id} is already being took care of")
+         
         if targeted_caretaker == None: 
             return jsonify(f"Animal with ID {employee_id} was not found") 
         targeted_caretaker.care(targeted_animal)
@@ -269,6 +276,10 @@ class deleteEmployee(Resource):
         my_zoo.kick(Guy_That_will_be_kicked)
         return jsonify(new_employee)
 
+@zooma_api.route('/employees/stats')
+class EmployeeStats(Resource):
+     def get(self):
+        return jsonify(my_zoo.stats())  
 
     
 

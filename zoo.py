@@ -1,6 +1,8 @@
 import datetime
 import random
 from random import *
+
+from numpy import average
 from caretaker import Caretaker
 class Zoo: 
     def __init__ (self): 
@@ -66,6 +68,22 @@ class Zoo:
         else: 
             return self.caretakers[randomguy]
 
+    def stats(self):
+        num_animals = []
+        for employee in self.caretakers:
+            num_animals.append(len(employee.animals))
+
+        smallest = min(num_animals)
+        average_ = sum(num_animals)/len(num_animals)
+        highest = max(num_animals)
+        
+        returning_object ={
+            "Minimum":smallest,
+            "Average":average_,
+            "Highest":highest,
+            
+        }
+        return returning_object
         
 
 
