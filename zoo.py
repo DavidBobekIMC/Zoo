@@ -60,6 +60,9 @@ class Zoo:
     def kick(self,thepoor_guy):
         self.caretakers.remove(thepoor_guy)
 
+    def deleteEnclosure(self,abouttoberemoved):
+        self.all_Enclosures.remove(abouttoberemoved)
+
     def getRandomCaretaker(self,previousguy):
         randomguy = randrange(0,len(self.caretakers))
         
@@ -68,6 +71,13 @@ class Zoo:
         else: 
             return self.caretakers[randomguy]
 
+    def getRandomEnclosure(self,previousenclosure):
+        randomEnclosure = randrange(0,len(self.all_Enclosures))
+        
+        if self.all_Enclosures[randomEnclosure] == previousenclosure:
+            self.getRandomEnclosure(previousenclosure)
+        else: 
+            return self.all_Enclosures[randomEnclosure]
     def stats(self):
         num_animals = []
         for employee in self.caretakers:

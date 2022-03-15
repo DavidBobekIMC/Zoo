@@ -29,6 +29,8 @@ class Animal:
     def assign_caretaker(self,caretaker_name):
         self.care_taker =caretaker_name
 
+    def assign_enclosure(self,enclosure_):
+        self.enclosure =enclosure_
 
         
     def birth(self):

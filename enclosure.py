@@ -13,6 +13,11 @@ class Enclosure:
     def removeAnimal(self,animal_id):
         self.animals.remove(animal_id)
 
+    def takeResponsibility(self,list_of_animals):
+        for x in list_of_animals:
+            self.animals.append(x)
+
+
     
 
         

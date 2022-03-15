@@ -203,6 +203,32 @@ caretaker_parser = reqparse.RequestParser()
 caretaker_parser.add_argument('name', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
 caretaker_parser.add_argument('address', type=str, required=True, help='The common name of the animal, e.g., Tiger')
 
+@zooma_api.route('/enclosure/<enclosure_id>')
+class deleteEnclosure(Resource):
+    
+    def delete(self,enclosure_id):
+        if len(my_zoo.all_Enclosures)<1:
+            return jsonify({f"Add some more enclosures before deleting"})
+        
+        Enclosure_That_will_be_kicked  = my_zoo.getEnclosure(enclosure_id)
+        if Enclosure_That_will_be_kicked == None: 
+            return (f"Caretaker with ID {enclosure_id} was not found") 
+        new_Enclosure =my_zoo.getRandomEnclosure(Enclosure_That_will_be_kicked)
+        
+
+        if len(Enclosure_That_will_be_kicked.animals) == 0:
+            pass
+        else:
+            oldAnimals = Enclosure_That_will_be_kicked.animals
+            new_Enclosure.takeResponsibility(oldAnimals)
+            for x in oldAnimals:
+                x.assign_enclosure(new_Enclosure.name)
+        
+
+        
+        my_zoo.deleteEnclosure(Enclosure_That_will_be_kicked)
+        return jsonify(my_zoo.all_Enclosures)
+
 
 @zooma_api.route('/employee')
 class AddCaretaker(Resource):
