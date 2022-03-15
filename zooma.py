@@ -293,7 +293,14 @@ class CleaningPlan(Resource):
      def get(self):
 
         return jsonify(my_zoo.cleaning())  
+
+@zooma_api.route('/tasks/feeding/')
+class FeedingPlan(Resource):
+     def get(self):
+
+        return jsonify(my_zoo.feeding())  
     
+      
     
 
      

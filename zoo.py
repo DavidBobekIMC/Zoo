@@ -133,8 +133,30 @@ class Zoo:
         return returning_object
 
     def feeding(self):
-        #every 2nd day
-        pass
+        returning_object ={
+            
+        }
+        for  animal in self.animals:
+            if len(self.animals)>0:
+                last_one = animal.feeding_record[-1]
+            else:
+                return "sorry"
+            
+            month =last_one.month
+            day = last_one.day
+            month_more = int(month)
+            if day<(31-2):
+                futureday = day+2
+            else:
+                month_more+=1
+                futureday = 2-(31-day)
+
+            #person =randrange(0,len(self.caretakers))
+
+            returning_object[animal.animal_id] = f"Month:{month_more} Day:{futureday} Responsible person {animal.care_taker}"
+        return returning_object
+
+    
 
 
 
