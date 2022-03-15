@@ -84,6 +84,60 @@ class Zoo:
             
         }
         return returning_object
+
+    def medical(self):
+        returning_object ={
+            
+        }
+        for animal in self.animals:
+            if len(animal.medical_checkup)>0:
+                last_one = animal.medical_checkup[-1]
+            else:
+                return "sorry"
+            
+            month =last_one.month
+            day = last_one.day
+            month_more = int(month)+1
+            if day<(31-7):
+                futureday = day+7
+            else:
+                month_more+=1
+                futureday = 7-(31-day)
+        
+            returning_object[animal.animal_id] = f"Month:{month_more} Day:{futureday}"
+        return returning_object
+
+    
+    def cleaning(self):
+        returning_object ={
+            
+        }
+        for  enclosure in self.all_Enclosures:
+            if len(enclosure.cleaning_records)>0:
+                last_one = enclosure.cleaning_records[-1]
+            else:
+                return "sorry"
+            
+            month =last_one.month
+            day = last_one.day
+            month_more = int(month)
+            if day<(31-3):
+                futureday = day+3
+            else:
+                month_more+=1
+                futureday = 3-(31-day)
+
+            person =randrange(0,len(self.caretakers))
+
+            returning_object[enclosure.name] = f"Month:{month_more} Day:{futureday} Responsible person {self.caretakers[person].name}"
+        return returning_object
+
+    def feeding(self):
+        #every 2nd day
+        pass
+
+
+
         
 
 

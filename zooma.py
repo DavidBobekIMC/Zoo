@@ -281,6 +281,19 @@ class EmployeeStats(Resource):
      def get(self):
         return jsonify(my_zoo.stats())  
 
+@zooma_api.route('/tasks/medical/')
+class Medical_plan(Resource):
+     def get(self):
+
+        return jsonify(my_zoo.medical())  
+    
+
+@zooma_api.route('/tasks/cleaning/')
+class CleaningPlan(Resource):
+     def get(self):
+
+        return jsonify(my_zoo.cleaning())  
+    
     
 
      
