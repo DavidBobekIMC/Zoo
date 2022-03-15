@@ -1,4 +1,5 @@
 from tkinter.messagebox import NO
+from unittest import result
 from flask import Flask, jsonify
 from flask_restx import Api, reqparse, Resource
 from caretaker import Caretaker
@@ -325,11 +326,15 @@ class FeedingPlan(Resource):
      def get(self):
 
         return jsonify(my_zoo.feeding())  
-    
-      
-    
 
-     
+@zooma_api.route('/animals/stat')
+class AnimalStats(Resource):
+    def get(self):
+        
+        return jsonify(my_zoo.stat())
+
+    
+ 
 if __name__ == '__main__':
     zooma_app.run(debug = True, port = 7000)
 

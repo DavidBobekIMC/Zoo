@@ -166,6 +166,25 @@ class Zoo:
             returning_object[animal.animal_id] = f"Month:{month_more} Day:{futureday} Responsible person {animal.care_taker}"
         return returning_object
 
+    def stat(self):
+        total_number_per_species = {}
+        for x in self.animals:
+            if x.species_name in total_number_per_species:
+                total_number_per_species[x.species_name] +=1
+            else:
+                total_number_per_species[x.species_name] = 1
+        
+        all_animals_in_enclosures = []       
+
+        for x in self.all_Enclosures:
+            all_animals_in_enclosures.append(len(x.animals))
+        average_animals_in_enclosure = sum(all_animals_in_enclosures)/len(self.all_Enclosures)
+
+        return f"{total_number_per_species} \n Average number of animals per Enclosure = {average_animals_in_enclosure}"
+
+
+
+
     
 
 
