@@ -1,6 +1,7 @@
 import datetime
 import random
 from random import *
+from matplotlib.style import available
 
 from numpy import average
 from caretaker import Caretaker
@@ -99,6 +100,7 @@ class Zoo:
         returning_object ={
             
         }
+       
         for animal in self.animals:
             if len(animal.medical_checkup)>0:
                 last_one = animal.medical_checkup[-1]
@@ -122,6 +124,8 @@ class Zoo:
         returning_object ={
             
         }
+        if len(self.all_Enclosures) ==0:
+            return "there are no enclosures in the list"
         for  enclosure in self.all_Enclosures:
             if len(enclosure.cleaning_records)>0:
                 last_one = enclosure.cleaning_records[-1]
@@ -146,6 +150,8 @@ class Zoo:
         returning_object ={
             
         }
+        if len(self.animals) ==0:
+            return "there are no animals in the list"
         for  animal in self.animals:
             if len(self.animals)>0:
                 last_one = animal.feeding_record[-1]
@@ -168,19 +174,27 @@ class Zoo:
 
     def stat(self):
         total_number_per_species = {}
+        if len(self.animals) ==0:
+            return "there are no animals in the list"
         for x in self.animals:
             if x.species_name in total_number_per_species:
                 total_number_per_species[x.species_name] +=1
             else:
                 total_number_per_species[x.species_name] = 1
         
-        all_animals_in_enclosures = []       
-
+        all_animals_in_enclosures = []
+        
+        if len(self.all_Enclosures) ==0:
+            return "there are no enclosures in the list"          
         for x in self.all_Enclosures:
             all_animals_in_enclosures.append(len(x.animals))
-        average_animals_in_enclosure = sum(all_animals_in_enclosures)/len(self.all_Enclosures)
 
-        return f"{total_number_per_species} \n Average number of animals per Enclosure = {average_animals_in_enclosure}"
+        average_animals_in_enclosure = sum(all_animals_in_enclosures)/len(self.all_Enclosures)
+        available_space = {}
+        for x in self.all_Enclosures:
+            available_space[x.name] =(int(x.area))/(int(len(x.animals)))
+
+        return f"{total_number_per_species} \n Average number of animals per Enclosure = {average_animals_in_enclosure} Average area per animal in each enclosure:{available_space}"
 
 
 
