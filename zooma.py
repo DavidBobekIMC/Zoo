@@ -1,4 +1,5 @@
-from tkinter.messagebox import NO
+import json
+from tkinter.messagebox import NO, RETRY
 from unittest import result
 from flask import Flask, jsonify
 from flask_restx import Api, reqparse, Resource
@@ -33,6 +34,20 @@ class AddAnimalAPI(Resource):
         age = args['age']
         
         # create a new animal object 
+        for x in name:
+            try:
+                x = int(x)
+                return jsonify(f"Invalid input {name}")
+            except:
+                pass
+
+        for x in species:
+            try:
+                x = int(x)
+                return jsonify(f"Invalid input {species}")
+            except:
+                pass
+
         new_animal = Animal (species, name, age) 
         #add the animal to the zoo
         my_zoo.addAnimal (new_animal) 
@@ -43,6 +58,8 @@ class AddAnimalAPI(Resource):
 class Animal_ID(Resource):
      def get(self, animal_id):
         search_result  = my_zoo.getAnimal(animal_id)
+        if search_result == None:
+            return jsonify("Animal not found")
         return search_result # this is automatically jsonified by flask-restx
     
      def delete(self, animal_id):
@@ -54,6 +71,8 @@ class Animal_ID(Resource):
 @zooma_api.route('/animals')
 class AllAnimals(Resource):
      def get(self):
+        if len(my_zoo.animals) ==0:
+            return jsonify("There are no animals")
         return jsonify( my_zoo.animals)  
     
 
@@ -83,8 +102,17 @@ class HomeAnimal(Resource):
     @zooma_api.doc(parser=homie)
     def post(self, animal_id):
         targeted_animal  = my_zoo.getAnimal(animal_id)
+        
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
+        targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
+
+        if targeted_animal not in my_zoo.animals:
+            return jsonify(f"Animal with id {animal_id} was not found")
+
+        if targetedEnclosure not in my_zoo.all_Enclosures:
+            return jsonify(f"Animal with id {enclosure_id} was not found")
+        
 
         if targeted_animal.enclosure == None:
             #checking if animal is without an enclosure
@@ -140,21 +168,21 @@ class AnimalBirth(Resource):
 
 
 hello = reqparse.RequestParser()
-hello.add_argument('Animal_ID', type=str, required=True)       
+hello.add_argument('animal_id', type=str, required=True)       
 @zooma_api.route('/animal/death')
 class AnimalDie(Resource):
     @zooma_api.doc(parser=hello)
     def post(self):
         args = hello.parse_args()
-        animal_id = args["Animal_ID"]         
-        animal_id  = my_zoo.getAnimal(animal_id)
-        if not animal_id: 
+        animal_id = args["animal_id"]         
+        animalobj  = my_zoo.getAnimal(animal_id)
+        if animalobj not in my_zoo.animals: 
             return jsonify(f"Animal with ID {animal_id} was not found") 
         
         #need to return the child not parent = find a way
-        my_zoo.animal_die(animal_id)
-        animal_id.die()
-        return jsonify(animal_id)
+        my_zoo.animal_die(animalobj)
+        animalobj.die()
+        return jsonify(animalobj)
 
 enclosures = reqparse.RequestParser()
 enclosures.add_argument('Enclosure ID', type=str, required=True)     
@@ -166,6 +194,13 @@ class CreateEnclosure(Resource):
         args = enclosures.parse_args()
         Enclosure_ID = args["Enclosure ID"]
         area = args["Area"]         
+        for x in area:
+            try:
+                x = int(x)
+            except:
+               return jsonify(f"Input {area} must be a number")
+        if int(area)<1:
+            return jsonify(f"Input {area} is too small")
         Enclosure_ID = Enclosure(Enclosure_ID,area)
         if not Enclosure_ID: 
             return jsonify(f"Enclosure with ID {Enclosure_ID} was not found") 
@@ -239,6 +274,12 @@ class AddCaretaker(Resource):
         args = caretaker_parser.parse_args()
         address = args['address']
         name = args['name']
+        for x in name:
+            try:
+                x = int(x)
+                return jsonify(f"Invalid input {name}")
+            except:
+                pass
         
         
         # create a new animal object 
@@ -289,7 +330,7 @@ class deleteEmployee(Resource):
     
     def delete(self,employee_id):
         if len(my_zoo.caretakers)<2:
-            return {f"Add some more caretakers before deleting"}
+            return jsonify(f"Add some more caretakers before deleting")
         Guy_That_will_be_kicked  = my_zoo.getCaretaker(employee_id)
         new_employee =my_zoo.getRandomCaretaker(Guy_That_will_be_kicked)
         #my_zoo.getCaretaker(new_employee)
@@ -333,7 +374,7 @@ class AnimalStats(Resource):
         
         return jsonify(my_zoo.stat())
 
-    
+
  
 if __name__ == '__main__':
     zooma_app.run(debug = True, port = 7000)
