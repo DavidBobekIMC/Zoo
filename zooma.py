@@ -179,7 +179,7 @@ class AnimalDie(Resource):
         if animalobj not in my_zoo.animals: 
             return jsonify(f"Animal with ID {animal_id} was not found") 
         
-        #need to return the child not parent = find a way
+        #need to return the child not parent = find a way 
         my_zoo.animal_die(animalobj)
         animalobj.die()
         return jsonify(animalobj)
@@ -236,8 +236,8 @@ class AllEnclosures(Resource):
         return jsonify(targeted_enclosure.animals)  
     
 caretaker_parser = reqparse.RequestParser()
-caretaker_parser.add_argument('name', type=str, required=True, help='The scientific name of the animal, e,g. Panthera tigris')
-caretaker_parser.add_argument('address', type=str, required=True, help='The common name of the animal, e.g., Tiger')
+caretaker_parser.add_argument('name', type=str, required=True, help='Name of a caretaker')
+caretaker_parser.add_argument('address', type=str, required=True, help='Care takers address')
 
 @zooma_api.route('/enclosure/<enclosure_id>')
 class deleteEnclosure(Resource):
