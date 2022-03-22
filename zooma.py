@@ -101,10 +101,9 @@ homie.add_argument('Enclosure ID', type=str, required=True)
 class HomeAnimal(Resource):
     @zooma_api.doc(parser=homie)
     def post(self, animal_id):
-        targeted_animal  = my_zoo.getAnimal(animal_id)
-        
         args = homie.parse_args()
         enclosure_id = args['Enclosure ID']
+        targeted_animal  = my_zoo.getAnimal(animal_id)
         targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
 
         if targeted_animal not in my_zoo.animals:
@@ -113,29 +112,7 @@ class HomeAnimal(Resource):
         if targetedEnclosure not in my_zoo.all_Enclosures:
             return jsonify(f"Animal with id {enclosure_id} was not found")
         
-
-        if targeted_animal.enclosure == None:
-            #checking if animal is without an enclosure
-            targeted_animal.enclosure = enclosure_id
-            targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
-            targetedEnclosure.animals.append(targeted_animal)
-        
-        else:
-            #getting the current enclosure
-            presentEnclosure = my_zoo.getEnclosure(targeted_animal.enclosureID)
-            #deleting the ID of animal form the enclosure
-            presentEnclosure.animals.remove(targeted_animal)
-            #finding where I want to add animal
-            targeted_animal.enclosure = enclosure_id
-            targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
-
-            #adding it to the enclosure
-            targetedEnclosure.animals.append(targeted_animal)
-        
-        if not targeted_animal or not targetedEnclosure: 
-            return jsonify(f"Animal with ID {animal_id} was not found")
-        
-        
+        my_zoo.animal_home(targeted_animal,targetedEnclosure)
         return jsonify(targeted_animal)
 
 kokot = reqparse.RequestParser()
@@ -186,7 +163,7 @@ class AnimalDie(Resource):
 
 enclosures = reqparse.RequestParser()
 enclosures.add_argument('Enclosure ID', type=str, required=True)     
-enclosures.add_argument('Area', type=str, required=True)   
+enclosures.add_argument('Area', type=int, required=True)   
 @zooma_api.route('/enclosure')
 class CreateEnclosure(Resource):
     @zooma_api.doc(parser=enclosures)
@@ -194,17 +171,9 @@ class CreateEnclosure(Resource):
         args = enclosures.parse_args()
         Enclosure_ID = args["Enclosure ID"]
         area = args["Area"]         
-        for x in area:
-            try:
-                x = int(x)
-            except:
-               return jsonify(f"Input {area} must be a number")
         if int(area)<1:
             return jsonify(f"Input {area} is too small")
         Enclosure_ID = Enclosure(Enclosure_ID,area)
-        if not Enclosure_ID: 
-            return jsonify(f"Enclosure with ID {Enclosure_ID} was not found") 
-        
         #need to return the child not parent = find a way
         my_zoo.add_enclosure(Enclosure_ID)   
         return jsonify(Enclosure_ID)
