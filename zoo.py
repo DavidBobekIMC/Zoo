@@ -18,10 +18,34 @@ class Zoo:
     def removeAnimal(self, animal): 
         self.animals.remove(animal) 
     
-    def getAnimal(self, animal_id): 
+    def getAnimal(self, animal_id):
+        found = 0 
         for animal in self.animals: 
-            if animal.animal_id == animal_id: 
-                return animal 
+            if animal.animal_id == animal_id:
+                found = 1 
+                return animal
+             
+            
+    def animal_home(self,targeted_animal,new_enclosure):
+        if targeted_animal.enclosure == None:
+            #checking if animal is without an enclosure
+            targeted_animal.enclosure = new_enclosure.name
+            targetedEnclosure = self.getEnclosure(new_enclosure.name)
+            targetedEnclosure.animals.append(targeted_animal)
+        
+        else:
+            #getting the current enclosure
+            presentEnclosure = targeted_animal.getEnclosure(targeted_animal.enclosureID)
+            #deleting the ID of animal form the enclosure
+            presentEnclosure.animals.remove(targeted_animal)
+            #finding where I want to add animal
+            targeted_animal.enclosure = new_enclosure.name
+            targetedEnclosure = self.getEnclosure(new_enclosure.name)
+
+            #adding it to the enclosure
+            targetedEnclosure.animals.append(targeted_animal)
+    
+        
 
     def getEnclosure(self,enclosure_id):
         print(self.all_Enclosures)

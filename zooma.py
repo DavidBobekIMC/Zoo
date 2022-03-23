@@ -269,7 +269,7 @@ class CaretakerAnimal(Resource):
         
         targeted_caretaker = my_zoo.getCaretaker(employee_id)
         
-        if targeted_animal in targeted_caretaker.animals: 
+        if targeted_animal.care_taker != None: 
             return jsonify(f"Animal with ID {animal_id} is already being took care of")
          
         if targeted_caretaker == None: 
