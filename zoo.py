@@ -56,7 +56,8 @@ class Zoo:
                 return enclosure 
 
 
-    def animal_die(self,animal):
+    def animal_die(self,animal,animals_enclosure):
+        animals_enclosure.animals.remove(animal)
         self.deadanimals.append(animal)
         self.animals.remove(animal)
         

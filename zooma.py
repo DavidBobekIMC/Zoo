@@ -157,7 +157,11 @@ class AnimalDie(Resource):
             return jsonify(f"Animal with ID {animal_id} was not found") 
         
         #need to return the child not parent = find a way 
-        my_zoo.animal_die(animalobj)
+        
+        #need to get it rid out of the enclosure
+        animals_enclosure = my_zoo.getEnclosure(animalobj.enclosure)
+        my_zoo.animal_die(animalobj,animals_enclosure) 
+        
         animalobj.die()
         return jsonify(animalobj)
 
@@ -309,7 +313,7 @@ class deleteEmployee(Resource):
 
         new_employee.takeResponsibility(oldAnimals)
         for x in oldAnimals:
-            x.assign_caretaker(new_employee.name)
+            x.assign_caretaker(new_employee)
         my_zoo.kick(Guy_That_will_be_kicked)
         return jsonify(new_employee)
 

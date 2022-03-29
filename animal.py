@@ -26,8 +26,13 @@ class Animal:
         #Enclosure Name
         #add animal to the enclosure
 
-    def assign_caretaker(self,caretaker_name):
-        self.care_taker =caretaker_name
+    def assign_caretaker(self,caretakerobj):
+        if self.care_taker == None:
+            self.care_taker =caretakerobj
+            
+        else:
+            pass
+            
 
     def assign_enclosure(self,enclosure_):
         self.enclosure =enclosure_

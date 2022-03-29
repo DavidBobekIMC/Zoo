@@ -39,11 +39,32 @@ def testAnimalDie():
     new_enclosure = Enclosure("Cage",250)
     new_zoo.addAnimal (new_animal)
     new_animal.assign_enclosure(new_enclosure)
+    new_zoo.animal_die(new_animal,new_enclosure)
     
-    new_enclosure.removeAnimal(new_animal)
     
-    new_zoo.animal_die(new_animal)
+    
     assert new_animal not in new_zoo.animals
     
+def testCleaningEnclosure():
+    new_zoo = Zoo()
+    new_enclosure = Enclosure("Cage",250)
+    num_of_cleanups = len(new_enclosure.cleaning_records)
+    new_zoo.clean_enclosure(new_enclosure.name)
+    assert num_of_cleanups +1 == len(new_enclosure.cleaning_records)
 
-testAnimalMakeHome()
+
+def testEmployeeTakesCare():
+    new_caretaker1 = Caretaker("John","21/11045")
+    new_caretaker2 = Caretaker("Patrick","56/78224")
+    new_animal = Animal ("Lion", "David", 2)
+    new_animal.assign_caretaker(new_caretaker1)
+    new_animal.assign_caretaker(new_caretaker2)
+    assert new_animal.care_taker == new_caretaker1
+    
+testAnimalDie()
+testEmployeeTakesCare()
+    
+    
+    
+    
+    
