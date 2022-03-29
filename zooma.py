@@ -227,7 +227,7 @@ class deleteEnclosure(Resource):
             oldAnimals = Enclosure_That_will_be_kicked.animals
             new_Enclosure.takeResponsibility(oldAnimals)
             for x in oldAnimals:
-                x.assign_enclosure(new_Enclosure.name)
+                x.assign_enclosure(new_Enclosure)
         
 
         

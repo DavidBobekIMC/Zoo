@@ -59,6 +59,7 @@ class Zoo:
     def animal_die(self,animal):
         self.deadanimals.append(animal)
         self.animals.remove(animal)
+        
 
     def add_enclosure(self,enclosure):
         y = 1

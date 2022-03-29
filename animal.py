@@ -31,6 +31,7 @@ class Animal:
 
     def assign_enclosure(self,enclosure_):
         self.enclosure =enclosure_
+        enclosure_.animals.append(self)
 
         
     def birth(self):
@@ -38,6 +39,7 @@ class Animal:
         return child
     def die(self):
         self.enclosure = None
+        
 
     
 
