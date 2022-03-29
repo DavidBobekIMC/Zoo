@@ -77,6 +77,8 @@ def testBirth():
     new_child = new_animal.birth()
     assert new_animal.enclosure ==new_child.enclosure
     assert new_animal.species_name == new_child.species_name
+    assert new_animal.animal_id != new_child.animal_id
+    
     
 
     
