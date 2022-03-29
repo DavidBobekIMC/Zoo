@@ -48,6 +48,7 @@ def testAnimalDie():
 def testCleaningEnclosure():
     new_zoo = Zoo()
     new_enclosure = Enclosure("Cage",250)
+    new_zoo.add_enclosure(new_enclosure)
     num_of_cleanups = len(new_enclosure.cleaning_records)
     new_zoo.clean_enclosure(new_enclosure.name)
     assert num_of_cleanups +1 == len(new_enclosure.cleaning_records)
@@ -61,10 +62,8 @@ def testEmployeeTakesCare():
     new_animal.assign_caretaker(new_caretaker2)
     assert new_animal.care_taker == new_caretaker1
     
-testAnimalDie()
-testEmployeeTakesCare()
+
     
-    
-    
+
     
     
