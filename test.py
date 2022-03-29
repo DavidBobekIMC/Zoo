@@ -1,3 +1,4 @@
+from signal import default_int_handler
 from unicodedata import name
 import pytest
 
@@ -61,8 +62,21 @@ def testEmployeeTakesCare():
     new_animal.assign_caretaker(new_caretaker1)
     new_animal.assign_caretaker(new_caretaker2)
     assert new_animal.care_taker == new_caretaker1
+    assert new_animal in new_caretaker1.animals
     
-
+def testFeeding():
+    new_animal = Animal("Lion","David",2)
+    defaultNumFeeds = len(new_animal.feeding_record)
+    new_animal.feed()
+    assert defaultNumFeeds+1 == len(new_animal.feeding_record) 
+    
+def testBirth():
+    new_animal = Animal("Lion","David",2)
+    new_enclosure = Enclosure("Cage",1000)
+    new_animal.assign_enclosure(new_enclosure)
+    new_child = new_animal.birth()
+    assert new_animal.enclosure ==new_child.enclosure
+    assert new_animal.species_name == new_child.species_name
     
 
     

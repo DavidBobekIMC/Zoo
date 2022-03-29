@@ -29,6 +29,7 @@ class Animal:
     def assign_caretaker(self,caretakerobj):
         if self.care_taker == None:
             self.care_taker =caretakerobj
+            caretakerobj.animals.append(self)
             
         else:
             pass
