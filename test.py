@@ -23,6 +23,13 @@ def testAnimalMakeHome():
     new_animal.assign_enclosure(new_enclosure)
     assert new_animal.enclosure == new_enclosure
     
+    
+def testAnimalVet():
+    new_animal = Animal ("Lion", "David", 2) 
+    number_of_medical_checkups = len(new_animal.medical_checkup)
+    new_animal.vet()
+    assert number_of_medical_checkups + 1 == len(new_animal.medical_checkup)
+    
 
 def testAnimalDie():
     new_zoo = Zoo()
