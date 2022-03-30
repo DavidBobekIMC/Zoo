@@ -151,11 +151,13 @@ def testLifeCycle():
     new_animal9.assign_enclosure(new_enclosure3) 
     new_animal10.assign_enclosure(new_enclosure3) 
     
+    assert new_enclosure1 in new_zoo.all_Enclosures and new_enclosure2 in new_zoo.all_Enclosures and new_enclosure2 in new_zoo.all_Enclosures
     
-    
-    
-    new
-    
+    #Animals 1 to 4 are giving birth
+    new_animal1.birth()
+    new_animal2.birth()
+    new_animal3.birth()
+    new_animal4.birth()
     
     
     
