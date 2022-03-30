@@ -117,6 +117,48 @@ def testDeleteEnclosure():
     assert new_enclosure not in my_zoo.all_Enclosures
     
     
-
+def testLifeCycle():
+    #creation of zoo animals and assigning encslosures to zoo and animals to enclosures
+    new_zoo = Zoo()
+    new_animal1 = Animal("Lion","David",1)
+    new_animal2 = Animal("Fish","Matt",2)
+    new_animal3 = Animal("Cat","Max",3)
+    new_animal4 = Animal("Rat","Lewis",4)
+    new_animal5 = Animal("Rhino","Alex",5)
+    new_animal6 = Animal("Rhino","Sam",1)
+    new_animal7 = Animal("Fish","Sergei",2)
+    new_animal8 = Animal("Cat","Steph",3)
+    new_animal9 = Animal("Rat","Leo",4)
+    new_animal10 = Animal("Rhino","Boris",5)
+    
+    new_enclosure1 = Enclosure("Cage1",50)
+    new_enclosure2 = Enclosure("Cage2",500)
+    new_enclosure3 = Enclosure("Cage3",1000)
+    
+   
+    new_zoo.add_enclosure(new_enclosure1)
+    new_zoo.add_enclosure(new_enclosure2)
+    new_zoo.add_enclosure(new_enclosure3)
+    
+    new_animal1.assign_enclosure(new_enclosure1) 
+    new_animal2.assign_enclosure(new_enclosure1) 
+    new_animal3.assign_enclosure(new_enclosure1) 
+    new_animal4.assign_enclosure(new_enclosure1) 
+    new_animal5.assign_enclosure(new_enclosure1)
+    new_animal6.assign_enclosure(new_enclosure2) 
+    new_animal7.assign_enclosure(new_enclosure2) 
+    new_animal8.assign_enclosure(new_enclosure2) 
+    new_animal9.assign_enclosure(new_enclosure3) 
+    new_animal10.assign_enclosure(new_enclosure3) 
+    
+    
+    
+    
+    new
+    
+    
+    
+    
+    
     
     
