@@ -1,6 +1,7 @@
 import datetime
 import random
-from random import *
+
+
 from matplotlib.style import available
 
 from numpy import average
@@ -91,20 +92,30 @@ class Zoo:
         self.all_Enclosures.remove(abouttoberemoved)
 
     def getRandomCaretaker(self,previousguy):
-        randomguy = randrange(0,len(self.caretakers))
+        randomguy = random.randrange(0,len(self.caretakers))
         
         if self.caretakers[randomguy] == previousguy:
             self.getRandomCaretaker(previousguy)
         else: 
             return self.caretakers[randomguy]
 
-    def getRandomEnclosure(self,previousenclosure):
-        randomEnclosure = randrange(0,len(self.all_Enclosures))
+    def getRandomEnclosure(self,previousenclosure): 
+      
+        self.all_Enclosures.remove(previousenclosure)
+        random_enclosure = random.choice(self.all_Enclosures)
+        #random_enclosure = random.choice(self.all_Enclosures)
+        #need to fix the random, it sometimes throw None
+        self.all_Enclosures.append(previousenclosure)
+        return random_enclosure      
+        
+        
+        
+        """ randomEnclosure = randrange(0,len(self.all_Enclosures))
         
         if self.all_Enclosures[randomEnclosure] == previousenclosure:
             self.getRandomEnclosure(previousenclosure)
         else: 
-            return self.all_Enclosures[randomEnclosure]
+            return self.all_Enclosures[randomEnclosure] """
     def stats(self):
         num_animals = []
         for employee in self.caretakers:
@@ -167,7 +178,7 @@ class Zoo:
                 month_more+=1
                 futureday = 3-(31-day)
 
-            person =randrange(0,len(self.caretakers))
+            person =random.randrangerandrange(0,len(self.caretakers))
 
             returning_object[enclosure.name] = f"Month:{month_more} Day:{futureday} Responsible person {self.caretakers[person].name}"
         return returning_object

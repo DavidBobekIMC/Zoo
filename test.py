@@ -7,7 +7,7 @@ from animal import *
 from caretaker import *
 from zoo import *
 from enclosure import *
-
+import random
 
 
 def testAnimalToZoo():
@@ -78,8 +78,38 @@ def testBirth():
     assert new_animal.enclosure ==new_child.enclosure
     assert new_animal.species_name == new_child.species_name
     assert new_animal.animal_id != new_child.animal_id
+
+
+#delete enclosure
+
+def testDeleteEnclosure():
+    new_zoo = Zoo()
+    new_enclosure = Enclosure("Cage",55)
+    new_enclosure2 = Enclosure("Cage2",77)
+    new_Animal1 = Animal("Lion","David",2)
+    new_Animal2 = Animal("Rhino","John",5)
     
     
+    new_zoo.add_enclosure(new_enclosure)
+    new_zoo.add_enclosure(new_enclosure2)
+    
+    
+    new_Animal1.assign_enclosure(new_enclosure)
+    new_Animal2.assign_enclosure(new_enclosure)
+    
+    
+    targeted_new_enclosure = new_zoo.getRandomEnclosure(new_enclosure)
+    list_of_animals = new_enclosure.animals
+    new_zoo.deleteEnclosure(new_enclosure)
+    
+    targeted_new_enclosure.takeResponsibility(list_of_animals)
+    assert new_Animal1 in new_enclosure2.animals
+    assert new_Animal2 in new_enclosure2.animals
+    assert new_enclosure not in my_zoo.all_Enclosures
+    
+    
+
+testDeleteEnclosure()
 
     
     
