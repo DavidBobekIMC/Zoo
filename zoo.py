@@ -58,7 +58,10 @@ class Zoo:
 
 
     def animal_die(self,animal,animals_enclosure):
-        animals_enclosure.animals.remove(animal)
+        if animals_enclosure == None:
+            pass
+        else:         
+            animals_enclosure.animals.remove(animal)
         self.deadanimals.append(animal)
         self.animals.remove(animal)
         
@@ -142,7 +145,7 @@ class Zoo:
             if len(animal.medical_checkup)>0:
                 last_one = animal.medical_checkup[-1]
             else:
-                return "sorry"
+                last_one = datetime.datetime.now()
             
             month =last_one.month
             day = last_one.day
@@ -162,26 +165,31 @@ class Zoo:
             
         }
         if len(self.all_Enclosures) ==0:
-            return "there are no enclosures in the list"
+            return "there are no enclosures"
+        if len(self.caretakers) ==0:
+            return "there are no caretakers"
         for  enclosure in self.all_Enclosures:
             if len(enclosure.cleaning_records)>0:
                 last_one = enclosure.cleaning_records[-1]
+                
             else:
-                return "sorry"
+                last_one = datetime.datetime.now()
+                
+                
             
-            month =last_one.month
-            day = last_one.day
-            month_more = int(month)
-            if day<(31-3):
-                futureday = day+3
-            else:
-                month_more+=1
-                futureday = 3-(31-day)
+                month =last_one.month
+                day = last_one.day
+                month_more = int(month)
+                if day<(31-3):
+                    futureday = day+3
+                else:
+                    month_more+=1
+                    futureday = 3-(31-day)
 
-            person =random.randrangerandrange(0,len(self.caretakers))
+                person =random.randrange(0,len(self.caretakers))
 
-            returning_object[enclosure.name] = f"Month:{month_more} Day:{futureday} Responsible person {self.caretakers[person].name}"
-        return returning_object
+                returning_object[enclosure.name] = f"Month:{month_more} Day:{futureday} Responsible person {self.caretakers[person].name}"
+            return returning_object
 
     def feeding(self):
         returning_object ={
@@ -189,11 +197,14 @@ class Zoo:
         }
         if len(self.animals) ==0:
             return "there are no animals in the list"
+        
         for  animal in self.animals:
-            if len(self.animals)>0:
+            if animal.care_taker == None:
+                return f"Animal {animal.animal_id} does not have a caretaker. Provide a caretaker before feeding"
+            if len(animal.feeding_record)>0:
                 last_one = animal.feeding_record[-1]
             else:
-                return "sorry"
+                last_one = datetime.datetime.now()
             
             month =last_one.month
             day = last_one.day

@@ -60,7 +60,7 @@ class Animal_ID(Resource):
         search_result  = my_zoo.getAnimal(animal_id)
         if search_result == None:
             return jsonify("Animal not found")
-        return search_result # this is automatically jsonified by flask-restx
+        return jsonify(search_result) # this is automatically jsonified by flask-restx
     
      def delete(self, animal_id):
         targeted_animal  = my_zoo.getAnimal(animal_id)
@@ -160,6 +160,7 @@ class AnimalDie(Resource):
         
         #need to get it rid out of the enclosure
         animals_enclosure = my_zoo.getEnclosure(animalobj.enclosure)
+        
         my_zoo.animal_die(animalobj,animals_enclosure) 
         
         animalobj.die()
