@@ -42,6 +42,7 @@ class Animal:
         
     def birth(self):
         child = Child(self)
+        
         return child
     def die(self):
         self.enclosure = None

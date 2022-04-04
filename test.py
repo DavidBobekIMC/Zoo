@@ -131,14 +131,47 @@ def testLifeCycle():
     new_animal9 = Animal("Rat","Leo",4)
     new_animal10 = Animal("Rhino","Boris",5)
     
+    new_zoo.addAnimal(new_animal1)
+    new_zoo.addAnimal(new_animal2)
+    new_zoo.addAnimal(new_animal3)
+    new_zoo.addAnimal(new_animal4)
+    new_zoo.addAnimal(new_animal5)
+    new_zoo.addAnimal(new_animal6)
+    new_zoo.addAnimal(new_animal7)
+    new_zoo.addAnimal(new_animal8)
+    new_zoo.addAnimal(new_animal9)
+    new_zoo.addAnimal(new_animal10)
+    
+    
     new_enclosure1 = Enclosure("Cage1",50)
     new_enclosure2 = Enclosure("Cage2",500)
     new_enclosure3 = Enclosure("Cage3",1000)
     
+    new_caretaker1 = Caretaker("David",1)
+    new_caretaker2 = Caretaker("Dinu",2)
+    new_caretaker3 = Caretaker("Mike",3)
+    
+
+    new_caretaker1.care(new_animal1)
+    new_caretaker1.care(new_animal2)
+    new_caretaker2.care(new_animal3)
+    new_caretaker2.care(new_animal4)
+    new_caretaker2.care(new_animal5)
+    new_caretaker3.care(new_animal6)
+    new_caretaker3.care(new_animal7)
+    new_caretaker3.care(new_animal8)
+    new_caretaker3.care(new_animal9)
+    new_caretaker3.care(new_animal10)
    
+    
+    assert new_animal1 in new_caretaker1.animals and new_animal2 in new_caretaker1.animals and new_animal3 in new_caretaker2.animals and new_animal4 in new_caretaker2.animals and new_animal5 in new_caretaker2.animals and new_animal6 in new_caretaker3.animals and new_animal7 in new_caretaker3.animals and new_animal8 in new_caretaker3.animals and new_animal9 in new_caretaker3.animals and new_animal10 in new_caretaker3.animals
+    assert new_animal1.care_taker == new_caretaker1 and new_animal2.care_taker == new_caretaker1 and new_animal3.care_taker == new_caretaker2
+    
     new_zoo.add_enclosure(new_enclosure1)
     new_zoo.add_enclosure(new_enclosure2)
     new_zoo.add_enclosure(new_enclosure3)
+    
+    
     
     new_animal1.assign_enclosure(new_enclosure1) 
     new_animal2.assign_enclosure(new_enclosure1) 
@@ -151,16 +184,37 @@ def testLifeCycle():
     new_animal9.assign_enclosure(new_enclosure3) 
     new_animal10.assign_enclosure(new_enclosure3) 
     
+    new_animal1.assign_enclosure(new_enclosure1) 
+    new_animal2.assign_enclosure(new_enclosure1) 
+    new_animal3.assign_enclosure(new_enclosure1) 
+    new_animal4.assign_enclosure(new_enclosure1) 
+    new_animal5.assign_enclosure(new_enclosure1)
+    new_animal6.assign_enclosure(new_enclosure2) 
+    new_animal7.assign_enclosure(new_enclosure2) 
+    new_animal8.assign_enclosure(new_enclosure2) 
+    new_animal9.assign_enclosure(new_enclosure3) 
+    new_animal10.assign_enclosure(new_enclosure3) 
+    
+    
     assert new_enclosure1 in new_zoo.all_Enclosures and new_enclosure2 in new_zoo.all_Enclosures and new_enclosure2 in new_zoo.all_Enclosures
     
     #Animals 1 to 4 are giving birth
-    new_animal1.birth()
-    new_animal2.birth()
-    new_animal3.birth()
-    new_animal4.birth()
+    new_animal11 =new_animal1.birth()
+    new_animal12 =new_animal2.birth()
+    new_animal13 =new_animal3.birth()
+    new_animal14 =new_animal4.birth()
+    
+    new_zoo.addAnimal(new_animal11)
+    new_zoo.addAnimal(new_animal12)
+    new_zoo.addAnimal(new_animal13)
+    new_zoo.addAnimal(new_animal14)
+    
+    assert new_animal11 in new_zoo.animals 
+    assert new_animal12 in new_zoo.animals  
+    assert new_animal13 in new_zoo.animals 
     
     
     
-    
+testLifeCycle()
     
     
