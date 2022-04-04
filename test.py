@@ -213,6 +213,12 @@ def testLifeCycle():
     assert new_animal12 in new_zoo.animals  
     assert new_animal13 in new_zoo.animals 
     
+    new_zoo.removeAnimal(new_animal11)
+    assert new_animal11 not in my_zoo.animals
+    
+    
+    
+    #delete an employee
     
     
 testLifeCycle()
