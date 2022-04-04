@@ -218,8 +218,7 @@ def testLifeCycle():
     
     
     
-    #delete an employee
-    
+    #delete an employee, modify the zooma delete employee so that it can be done, there is too much logic
     
 testLifeCycle()
     
