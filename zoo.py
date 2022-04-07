@@ -5,7 +5,6 @@ import random
 from matplotlib.style import available
 
 from numpy import average
-from caretaker import Caretaker
 class Zoo: 
     def __init__ (self): 
         self.animals = []
@@ -95,19 +94,22 @@ class Zoo:
         self.all_Enclosures.remove(abouttoberemoved)
 
     def getRandomCaretaker(self,previousguy):
-        randomguy = random.randrange(0,len(self.caretakers))
-        
-        if self.caretakers[randomguy] == previousguy:
-            self.getRandomCaretaker(previousguy)
-        else: 
-            return self.caretakers[randomguy]
+        self.caretakers.remove(previousguy)
+        randomguy = random.choice(self.caretakers)
+        self.caretakers.append(previousguy)    
+        return randomguy
+       
 
     def getRandomEnclosure(self,previousenclosure): 
+        """ random_enclosure = random.randrange(0,len(self.all_Enclosures))
+        
+        if self.all_Enclosures[random_enclosure] == previousenclosure:
+            self.getRandomEnclosure(previousenclosure)
+        else: 
+            return self.all_Enclosures[random_enclosure] """
       
         self.all_Enclosures.remove(previousenclosure)
         random_enclosure = random.choice(self.all_Enclosures)
-        #random_enclosure = random.choice(self.all_Enclosures)
-        #need to fix the random, it sometimes throw None
         self.all_Enclosures.append(previousenclosure)
         return random_enclosure      
         

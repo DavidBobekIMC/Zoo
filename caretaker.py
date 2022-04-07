@@ -7,7 +7,7 @@ class Caretaker:
 
     def care(self,animal):
         self.animals.append(animal)
-        animal.care_taker = self
+        
 
     def takeResponsibility(self,list_of_animals):
         for x in list_of_animals:

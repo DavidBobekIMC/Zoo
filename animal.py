@@ -1,7 +1,6 @@
 import uuid 
 import datetime 
-from enclosure import Enclosure
-from zoo import Zoo
+
 class Animal: 
     def __init__ (self, species_name, common_name, age): 
         self.animal_id = str(uuid.uuid4())
@@ -37,7 +36,7 @@ class Animal:
 
     def assign_enclosure(self,enclosure_):
         self.enclosure =enclosure_
-        enclosure_.animals.append(self)
+        
 
         
     def birth(self):

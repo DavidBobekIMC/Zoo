@@ -76,6 +76,15 @@ class AllAnimals(Resource):
         return jsonify( my_zoo.animals)  
     
 
+@zooma_api.route('/caretakers')
+class AllCaretakers(Resource):
+     def get(self):
+        if len(my_zoo.caretakers) ==0:
+            return jsonify("There are no caretakers")
+        return jsonify( my_zoo.caretakers)  
+    
+
+
 @zooma_api.route('/animals/<animal_id>/feed')
 class FeedAnimal(Resource):
      def post(self, animal_id):
@@ -217,12 +226,12 @@ caretaker_parser.add_argument('address', type=str, required=True, help='Care tak
 class deleteEnclosure(Resource):
     
     def delete(self,enclosure_id):
-        if len(my_zoo.all_Enclosures)<1:
+        if len(my_zoo.all_Enclosures)<2:
             return jsonify({f"Add some more enclosures before deleting"})
         
         Enclosure_That_will_be_kicked  = my_zoo.getEnclosure(enclosure_id)
         if Enclosure_That_will_be_kicked == None: 
-            return (f"Caretaker with ID {enclosure_id} was not found") 
+            return (f"Enclosures with ID {enclosure_id} was not found") 
         new_Enclosure =my_zoo.getRandomEnclosure(Enclosure_That_will_be_kicked)
         
 
@@ -231,13 +240,15 @@ class deleteEnclosure(Resource):
         else:
             oldAnimals = Enclosure_That_will_be_kicked.animals
             new_Enclosure.takeResponsibility(oldAnimals)
+            
+            #new_Enclosure.takeResponsibility(oldAnimals)
             for x in oldAnimals:
-                x.assign_enclosure(new_Enclosure)
+                x.assign_enclosure(new_Enclosure.name)
         
 
         
         my_zoo.deleteEnclosure(Enclosure_That_will_be_kicked)
-        return jsonify(my_zoo.all_Enclosures)
+        return jsonify(Enclosure_That_will_be_kicked)
 
 
 @zooma_api.route('/employee')
@@ -311,10 +322,12 @@ class deleteEmployee(Resource):
         oldAnimals = Guy_That_will_be_kicked.animals
         if Guy_That_will_be_kicked == None: 
             return jsonify(f"Caretaker with ID {employee_id} was not found") 
-
+        
         new_employee.takeResponsibility(oldAnimals)
         for x in oldAnimals:
             x.assign_caretaker(new_employee)
+            
+            
         my_zoo.kick(Guy_That_will_be_kicked)
         return jsonify(new_employee)
 
