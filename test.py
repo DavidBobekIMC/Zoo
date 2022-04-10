@@ -1,5 +1,5 @@
-from signal import default_int_handler
-from unicodedata import name
+
+
 import pytest
 
 from zooma import *
@@ -236,12 +236,28 @@ def testLifeCycle():
     new_animal3.vet()
     new_animal4.vet()
     
+    
 
     assert len(new_animal1.medical_checkup) == 1 and len(new_animal2.medical_checkup) == 1 and len(new_animal3.medical_checkup) == 1 and len(new_animal4.medical_checkup) == 1
     
-   #new.zoo
+    new_animal11.feed()
+    new_animal12.feed()
+    new_animal13.feed()
+    
+    assert len(new_animal11.feeding_record) == 1 and len(new_animal12.feeding_record) == 1 and len(new_animal13.feeding_record) == 1 
+    
+    
+    new_zoo.clean_enclosure(new_enclosure1.name)
+    new_zoo.clean_enclosure(new_enclosure2.name)
+    new_zoo.clean_enclosure(new_enclosure2.name)
+    new_zoo.clean_enclosure(new_enclosure3.name)
+    new_zoo.clean_enclosure(new_enclosure3.name)
+    new_zoo.clean_enclosure(new_enclosure3.name)
+    
+    
+    assert len(new_enclosure1.cleaning_records) == 1 and len(new_enclosure2.cleaning_records) == 2 and len(new_enclosure3.cleaning_records) == 3
     
     
     
-#testLifeCycle()    
+   
     
