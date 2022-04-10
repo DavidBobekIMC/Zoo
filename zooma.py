@@ -14,7 +14,7 @@ from enclosure import Enclosure
 my_zoo = Zoo()
 
 zooma_app = Flask(__name__)
-# need to extend this class for custom objects, so that they can be jsonified
+
 zooma_app.json_encoder = ZooJsonEncoder 
 zooma_api = Api(zooma_app)
 
@@ -55,6 +55,7 @@ class AddAnimalAPI(Resource):
     
 
 @zooma_api.route('/animal/<animal_id>')
+#Return the details of an animal with the given animal_id
 class Animal_ID(Resource):
      def get(self, animal_id):
         search_result  = my_zoo.getAnimal(animal_id)
@@ -77,6 +78,7 @@ class AllAnimals(Resource):
     
 
 @zooma_api.route('/caretakers')
+#Functio nreturn all of the caretakers present in the zoo
 class AllCaretakers(Resource):
      def get(self):
         if len(my_zoo.caretakers) ==0:
@@ -85,6 +87,7 @@ class AllCaretakers(Resource):
     
 
 
+#This funciton is responsible for feeding the animal by animal_id
 @zooma_api.route('/animals/<animal_id>/feed')
 class FeedAnimal(Resource):
      def post(self, animal_id):
