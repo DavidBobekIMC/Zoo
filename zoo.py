@@ -48,11 +48,8 @@ class Zoo:
         
 
     def getEnclosure(self,enclosure_id):
-        print(self.all_Enclosures)
-        for enclosure in self.all_Enclosures:
-            print(enclosure) 
+        for enclosure in self.all_Enclosures:   
             if enclosure.name == enclosure_id: 
-                print(enclosure)
                 return enclosure 
 
 
@@ -77,7 +74,7 @@ class Zoo:
         for enclosure in self.all_Enclosures:     
             if enclosure.name == enclosure_id:
                 enclosure.cleaning_records.append(datetime.datetime.now())
-                print(enclosure.cleaning_records)
+                
     
     def add_Caretaker(self,caretaker):
         self.caretakers.append(caretaker)

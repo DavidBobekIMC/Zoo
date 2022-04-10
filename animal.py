@@ -22,8 +22,6 @@ class Animal:
         self.medical_checkup.append( datetime.datetime.now())
 
     
-        #Enclosure Name
-        #add animal to the enclosure
 
     def assign_caretaker(self,caretakerobj):
         if self.care_taker == None:
@@ -50,9 +48,7 @@ class Animal:
     
 
     
-""" 
-zvieratko = Animal("A","A",4)
-zvieratko.home(455) """
+
 class Child(Animal):
     def __init__(self,motherAnimal):
         self.animal_id = str(uuid.uuid4())
@@ -66,6 +62,5 @@ class Child(Animal):
         self.motherID = motherAnimal.animal_id
 
 
-#print(babatko)
 
             
