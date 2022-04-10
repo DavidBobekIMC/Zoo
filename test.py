@@ -231,9 +231,17 @@ def testLifeCycle():
     new_zoo.removeAnimal(new_animal11)
     assert new_animal11 not in my_zoo.animals
     
+    new_animal1.vet()
+    new_animal2.vet()
+    new_animal3.vet()
+    new_animal4.vet()
+    
+
+    assert len(new_animal1.medical_checkup) == 1 and len(new_animal2.medical_checkup) == 1 and len(new_animal3.medical_checkup) == 1 and len(new_animal4.medical_checkup) == 1
+    
+   #new.zoo
     
     
-    #delete an employee, modify the zooma delete employee so that it can be done, there is too much logic
     
 #testLifeCycle()    
     
