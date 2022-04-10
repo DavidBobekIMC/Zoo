@@ -101,12 +101,7 @@ class Zoo:
        
 
     def getRandomEnclosure(self,previousenclosure): 
-        """ random_enclosure = random.randrange(0,len(self.all_Enclosures))
         
-        if self.all_Enclosures[random_enclosure] == previousenclosure:
-            self.getRandomEnclosure(previousenclosure)
-        else: 
-            return self.all_Enclosures[random_enclosure] """
       
         self.all_Enclosures.remove(previousenclosure)
         random_enclosure = random.choice(self.all_Enclosures)
@@ -115,12 +110,6 @@ class Zoo:
         
         
         
-        """ randomEnclosure = randrange(0,len(self.all_Enclosures))
-        
-        if self.all_Enclosures[randomEnclosure] == previousenclosure:
-            self.getRandomEnclosure(previousenclosure)
-        else: 
-            return self.all_Enclosures[randomEnclosure] """
     def stats(self):
         num_animals = []
         for employee in self.caretakers:
