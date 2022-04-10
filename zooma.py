@@ -97,6 +97,9 @@ class FeedAnimal(Resource):
         targeted_animal.feed()
         return jsonify(targeted_animal)
 
+
+#Function is responsible for taking care of the animal
+
 @zooma_api.route('/animals/<animal_id>/vet')
 class VetAnimal(Resource):
      def post(self, animal_id):
@@ -109,6 +112,10 @@ class VetAnimal(Resource):
 
 EnclosureParser = reqparse.RequestParser()
 EnclosureParser.add_argument('Enclosure ID', type=str, required=True)
+
+#Route /animals/<animal_id>/home is responsible for assigning defined animal an enclosure
+#I have created extra cases in order to prevent the code from crashing
+
 @zooma_api.route('/animals/<animal_id>/home')
 class HomeAnimal(Resource):
     @zooma_api.doc(parser=EnclosureParser)
@@ -128,7 +135,11 @@ class HomeAnimal(Resource):
         return jsonify(targeted_animal)
 
 birthParser = reqparse.RequestParser()
-birthParser.add_argument('Mother_ID', type=str, required=True)       
+birthParser.add_argument('Mother_ID', type=str, required=True)     
+  
+  
+
+#An animal is born. (parameters: mother_id). The child lives in the same enclosure as the mother and shares the species and common name. 
 @zooma_api.route('/animals/birth')
 class AnimalBirth(Resource):
     @zooma_api.doc(parser=birthParser)
@@ -139,8 +150,6 @@ class AnimalBirth(Resource):
         if not motherAnimal: 
             return jsonify(f"Animal with ID {mother_id} was not found") 
         
-        #need to return the child not parent = find a way
-
 
         #adding Instance of a subclass Animal called child into the enclosure where is mother
         AnimalChild = motherAnimal.birth()
@@ -159,6 +168,7 @@ class AnimalBirth(Resource):
 hello = reqparse.RequestParser()
 hello.add_argument('animal_id', type=str, required=True)       
 @zooma_api.route('/animal/death')
+#The route animal/death 
 class AnimalDie(Resource):
     @zooma_api.doc(parser=hello)
     def post(self):
@@ -191,7 +201,7 @@ class CreateEnclosure(Resource):
         if int(area)<1:
             return jsonify(f"Input {area} is too small")
         Enclosure_ID = Enclosure(Enclosure_ID,area)
-        #need to return the child not parent = find a way
+        
         my_zoo.add_enclosure(Enclosure_ID)   
         return jsonify(Enclosure_ID)
 
@@ -225,6 +235,10 @@ caretaker_parser = reqparse.RequestParser()
 caretaker_parser.add_argument('name', type=str, required=True, help='Name of a caretaker')
 caretaker_parser.add_argument('address', type=str, required=True, help='Care takers address')
 
+""" Function is responsible for deleting the enclosure from the ZOO and transferring its animals to another one. 
+There fore I have added a feature that blocks the ability to delete if there is only 1 enclosure. 
+If there would be only one enclosure the animals could not be sent anywhere else and would end up homeless
+ """
 @zooma_api.route('/enclosure/<enclosure_id>')
 class deleteEnclosure(Resource):
     
@@ -302,6 +316,8 @@ class CaretakerAnimal(Resource):
 
 
 
+#This function is responsible for assigning the employee an animal and animal an employeee
+
 @zooma_api.route('/employee/<employee_id>/care/animals')
 class Allemployees(Resource):
      def get(self,employee_id):
@@ -312,6 +328,10 @@ class Allemployees(Resource):
 
 
 
+"""  Deleting and employee with the given employee_id. 
+Transfering the animals under the supervision of 
+the corresponding employee to another employee 
+first.  """
 
 @zooma_api.route('/employee/<employee_id>')
 class deleteEmployee(Resource):
@@ -339,6 +359,12 @@ class EmployeeStats(Resource):
      def get(self):
         return jsonify(my_zoo.stats())  
 
+"""
+Generates a medical check-up plan for all the 
+animals. For every animal it calculates the next 
+date for medical check-up. 
+"""
+
 @zooma_api.route('/tasks/medical/')
 class Medical_plan(Resource):
      def get(self):
@@ -346,6 +372,12 @@ class Medical_plan(Resource):
         return jsonify(my_zoo.medical())  
     
 
+
+""" 
+Generating a cleaning plan for all the enclosures. 
+For every enclosure, calculate the next date for 
+cleaning and the person responsible for 
+cleaning. """
 @zooma_api.route('/tasks/cleaning/')
 class CleaningPlan(Resource):
      def get(self):
@@ -358,6 +390,17 @@ class FeedingPlan(Resource):
 
         return jsonify(my_zoo.feeding())  
 
+
+
+""" 
+Total number of animals per species (based 
+on the scientific name) 
+ Average number of animals per enclosure 
+ Number of enclosures with animals from 
+multiple species 
+ Available space per animal in each 
+enclosure 
+"""
 @zooma_api.route('/animals/stat')
 class AnimalStats(Resource):
     def get(self):
