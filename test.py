@@ -22,6 +22,7 @@ def testAnimalMakeHome():
     new_animal = Animal ("Lion", "David", 2) 
     new_enclosure = Enclosure("Cage",250)
     new_animal.assign_enclosure(new_enclosure)
+    new_enclosure.animals.append(new_animal)
     assert new_animal.enclosure == new_enclosure
     assert new_animal in new_enclosure.animals
     
@@ -50,6 +51,7 @@ def testAnimalDie():
     new_enclosure = Enclosure("Cage",250)
     new_zoo.addAnimal (new_animal)
     new_animal.assign_enclosure(new_enclosure)
+    new_enclosure.animals.append(new_animal)
     new_zoo.animal_die(new_animal,new_enclosure)   
     assert new_animal not in new_zoo.animals
     assert new_animal not in new_enclosure.animals
@@ -106,6 +108,9 @@ def testDeleteEnclosure():
     new_Animal1.assign_enclosure(new_enclosure)
     new_Animal2.assign_enclosure(new_enclosure)
     
+    new_enclosure.animals.append(new_Animal1)
+    
+    new_enclosure.animals.append(new_Animal2)
     
     targeted_new_enclosure = new_zoo.getRandomEnclosure(new_enclosure)
     list_of_animals = new_enclosure.animals
@@ -162,8 +167,18 @@ def testLifeCycle():
     new_caretaker3.care(new_animal8)
     new_caretaker3.care(new_animal9)
     new_caretaker3.care(new_animal10)
-   
     
+    new_animal1.assign_caretaker(new_caretaker1)
+    new_animal2.assign_caretaker(new_caretaker1)
+    new_animal3.assign_caretaker(new_caretaker2)
+    new_animal4.assign_caretaker(new_caretaker2)
+    new_animal5.assign_caretaker(new_caretaker2)
+    new_animal6.assign_caretaker(new_caretaker3)
+    new_animal7.assign_caretaker(new_caretaker3)
+    new_animal8.assign_caretaker(new_caretaker3)
+    new_animal9.assign_caretaker(new_caretaker3)
+    new_animal10.assign_caretaker(new_caretaker3)
+
     assert new_animal1 in new_caretaker1.animals and new_animal2 in new_caretaker1.animals and new_animal3 in new_caretaker2.animals and new_animal4 in new_caretaker2.animals and new_animal5 in new_caretaker2.animals and new_animal6 in new_caretaker3.animals and new_animal7 in new_caretaker3.animals and new_animal8 in new_caretaker3.animals and new_animal9 in new_caretaker3.animals and new_animal10 in new_caretaker3.animals
     assert new_animal1.care_taker == new_caretaker1 and new_animal2.care_taker == new_caretaker1 and new_animal3.care_taker == new_caretaker2
     
@@ -220,6 +235,5 @@ def testLifeCycle():
     
     #delete an employee, modify the zooma delete employee so that it can be done, there is too much logic
     
-testLifeCycle()
-    
+#testLifeCycle()    
     

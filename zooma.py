@@ -104,13 +104,13 @@ class VetAnimal(Resource):
         return jsonify(targeted_animal)
 
 
-homie = reqparse.RequestParser()
-homie.add_argument('Enclosure ID', type=str, required=True)
+EnclosureParser = reqparse.RequestParser()
+EnclosureParser.add_argument('Enclosure ID', type=str, required=True)
 @zooma_api.route('/animals/<animal_id>/home')
 class HomeAnimal(Resource):
-    @zooma_api.doc(parser=homie)
+    @zooma_api.doc(parser=EnclosureParser)
     def post(self, animal_id):
-        args = homie.parse_args()
+        args = EnclosureParser.parse_args()
         enclosure_id = args['Enclosure ID']
         targeted_animal  = my_zoo.getAnimal(animal_id)
         targetedEnclosure = my_zoo.getEnclosure(enclosure_id)
@@ -124,13 +124,13 @@ class HomeAnimal(Resource):
         my_zoo.animal_home(targeted_animal,targetedEnclosure)
         return jsonify(targeted_animal)
 
-kokot = reqparse.RequestParser()
-kokot.add_argument('Mother_ID', type=str, required=True)       
+birthParser = reqparse.RequestParser()
+birthParser.add_argument('Mother_ID', type=str, required=True)       
 @zooma_api.route('/animals/birth')
 class AnimalBirth(Resource):
-    @zooma_api.doc(parser=kokot)
+    @zooma_api.doc(parser=birthParser)
     def post(self):
-        args = kokot.parse_args()
+        args = birthParser.parse_args()
         mother_id = args["Mother_ID"]         
         motherAnimal  = my_zoo.getAnimal(mother_id)
         if not motherAnimal: 
