@@ -1,7 +1,10 @@
-import json
-from tkinter.messagebox import NO, RETRY
-from unittest import result
-from flask import Flask, jsonify
+#pip install flask
+#pip install flask_restx
+
+from flask import Flask
+
+
+from flask import Flask,request, jsonify
 from flask_restx import Api, reqparse, Resource
 from caretaker import Caretaker
 from zoo_json_utils import ZooJsonEncoder
@@ -19,18 +22,9 @@ zooma_app.json_encoder = ZooJsonEncoder
 zooma_api = Api(zooma_app)
 
 animal_parser = reqparse.RequestParser()
-animal_parser.add_argument(
-    "species",
-    type=str,
-    required=True,
-    help="The scientific name of the animal, e,g. Panthera tigris",
-)
-animal_parser.add_argument(
-    "name", type=str, required=True, help="The common name of the animal, e.g., Tiger"
-)
-animal_parser.add_argument(
-    "age", type=int, required=True, help="The age of the animal, e.g., 12"
-)
+animal_parser.add_argument("species",type=str,required=True,help="The scientific name of the animal, e,g. Panthera tigris")
+animal_parser.add_argument("name", type=str, required=True, help="The common name of the animal, e.g., Tiger")
+animal_parser.add_argument("age", type=int, required=True, help="The age of the animal, e.g., 12")
 
 
 @zooma_api.route("/animal")
@@ -432,4 +426,4 @@ class AnimalStats(Resource):
 
 
 if __name__ == "__main__":
-    zooma_app.run(debug=True, port=7000)
+    zooma_app.run(debug=True,port=7000)
